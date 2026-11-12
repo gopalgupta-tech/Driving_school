@@ -12,6 +12,7 @@
   if (yr) yr.textContent = new Date().getFullYear();
 
   /* Sticky header shadow */
+
   var header = $('#siteHeader');
   function onScroll() { header.classList.toggle('is-stuck', window.scrollY > 8); }
   window.addEventListener('scroll', onScroll, { passive: true });
