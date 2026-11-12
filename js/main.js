@@ -2,7 +2,7 @@
 (function () {
   'use strict';
 
-  var WHATSAPP_NUMBER = '918188939566'; // change here if the WhatsApp number differs
+  var WHATSAPP_NUMBER = '919559164630'; // change here if the WhatsApp number differs
 
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
