@@ -58,6 +58,19 @@
     });
   }
 
+  /* Hero video: respect reduced-motion, and recover if autoplay is blocked */
+  var vid = $('#heroVideo');
+  if (vid) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) {
+      vid.removeAttribute('autoplay');
+      vid.pause();
+    } else {
+      var tryPlay = vid.play && vid.play();
+      if (tryPlay && tryPlay.catch) tryPlay.catch(function () {});
+    }
+  }
+
   /* Scroll-spy (top nav + bottom nav) */
   var ids = ['about', 'cars', 'simulator', 'branches', 'contact'];
   var spyLinks = $$('[data-spy]');
