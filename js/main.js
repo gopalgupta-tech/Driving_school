@@ -58,39 +58,61 @@
     });
   }
 
-  /* Hero video: start unmuted and provide a single accessible toggle. */
+  /* Hero video: keep the original caption and add a separate mute toggle. */
   var vid = $('#heroVideo');
   if (vid) {
     var tag = $('.hero__tag');
-    if (tag) {
-      var muteButton = document.createElement('button');
-      muteButton.type = 'button';
-      muteButton.className = 'hero__tag btn';
-      muteButton.setAttribute('aria-label', 'Mute video');
-      muteButton.setAttribute('title', 'Mute video');
-      muteButton.innerHTML = '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
-      tag.replaceWith(muteButton);
+    var muteButton = document.createElement('button');
+    muteButton.type = 'button';
+    muteButton.className = 'hero__mute-button';
+    muteButton.setAttribute('aria-label', 'Mute video');
+    muteButton.setAttribute('title', 'Mute video');
+    muteButton.setAttribute('aria-pressed', 'false');
+    muteButton.style.cssText = 'position:absolute;top:16px;right:16px;z-index:4;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(15,30,51,.88);color:#fff;cursor:pointer;';
 
-      muteButton.addEventListener('click', function () {
-        vid.muted = !vid.muted;
-        var muted = vid.muted;
-        muteButton.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
-        muteButton.setAttribute('title', muted ? 'Unmute video' : 'Mute video');
-        muteButton.innerHTML = muted
-          ? '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6m0-6-5 6"/></svg>'
-          : '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
-      });
+    function updateMuteButton() {
+      var muted = vid.muted;
+      muteButton.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
+      muteButton.setAttribute('title', muted ? 'Unmute video' : 'Mute video');
+      muteButton.setAttribute('aria-pressed', String(muted));
+      muteButton.innerHTML = muted
+        ? '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6m0-6-5 6"/></svg>'
+        : '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
     }
+
+    if (tag) {
+      tag.style.left = '16px';
+      tag.style.right = 'auto';
+      tag.parentNode.appendChild(muteButton);
+    }
+    updateMuteButton();
+    muteButton.addEventListener('click', function () {
+      vid.muted = !vid.muted;
+      updateMuteButton();
+      if (!vid.muted && vid.paused) {
+        var playPromise = vid.play();
+        if (playPromise && playPromise.catch) playPromise.catch(function () {});
+      }
+    });
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
       vid.removeAttribute('autoplay');
       vid.pause();
     } else {
+      /* Try unmuted playback first; fall back to muted autoplay if the browser
+         blocks sound-on autoplay, so the video itself remains visible/playing. */
       vid.removeAttribute('muted');
       vid.muted = false;
       var tryPlay = vid.play && vid.play();
-      if (tryPlay && tryPlay.catch) tryPlay.catch(function () {});
+      if (tryPlay && tryPlay.catch) {
+        tryPlay.catch(function () {
+          vid.muted = true;
+          updateMuteButton();
+          var mutedPlay = vid.play && vid.play();
+          if (mutedPlay && mutedPlay.catch) mutedPlay.catch(function () {});
+        });
+      }
     }
   }
 
