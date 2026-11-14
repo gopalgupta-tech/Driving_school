@@ -99,7 +99,7 @@
       var started = vid.play();
       if (started && started.then) {
         started.then(paintBtn).catch(function () {
-          vid.muted = false;                    // autoplay with sound was blocked
+          vid.muted = true;                    // autoplay with sound was blocked
           play();
           paintBtn();
           unlockEvents.forEach(function (ev) { document.addEventListener(ev, unlock, { passive: true }); });
