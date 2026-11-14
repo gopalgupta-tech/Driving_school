@@ -58,20 +58,37 @@
     });
   }
 
-  /* Hero video: keep the original caption and add a separate mute toggle. */
-  var vid = $('#heroVideo');
-  if (vid) {
-    var tag = $('.hero__tag');
+  /* Replace the first content image with the fleet video and add a separate
+     mute toggle. The hero video and its caption remain unchanged. */
+  var firstImage = $('#about .about__media img');
+  if (firstImage) {
+    var media = firstImage.parentNode;
+    var video = document.createElement('video');
+    video.id = 'aboutVideo';
+    video.autoplay = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    video.poster = firstImage.currentSrc || firstImage.src;
+    video.setAttribute('aria-label', 'Shukla Car Driving School training fleet video');
+    video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
+    var source = document.createElement('source');
+    source.src = 'assets/images/three-cars.mp4';
+    source.type = 'video/mp4';
+    video.appendChild(source);
+    firstImage.replaceWith(video);
+
     var muteButton = document.createElement('button');
     muteButton.type = 'button';
-    muteButton.className = 'hero__mute-button';
+    muteButton.className = 'about__mute-button';
     muteButton.setAttribute('aria-label', 'Mute video');
     muteButton.setAttribute('title', 'Mute video');
     muteButton.setAttribute('aria-pressed', 'false');
-    muteButton.style.cssText = 'position:absolute;top:16px;right:16px;z-index:4;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(15,30,51,.88);color:#fff;cursor:pointer;';
+    muteButton.style.cssText = 'position:absolute;top:14px;right:14px;z-index:3;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(15,30,51,.88);color:#fff;cursor:pointer;';
+    media.appendChild(muteButton);
 
     function updateMuteButton() {
-      var muted = vid.muted;
+      var muted = video.muted;
       muteButton.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
       muteButton.setAttribute('title', muted ? 'Unmute video' : 'Mute video');
       muteButton.setAttribute('aria-pressed', String(muted));
@@ -80,36 +97,29 @@
         : '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
     }
 
-    if (tag) {
-      tag.style.left = '16px';
-      tag.style.right = 'auto';
-      tag.parentNode.appendChild(muteButton);
-    }
+    video.muted = false;
     updateMuteButton();
     muteButton.addEventListener('click', function () {
-      vid.muted = !vid.muted;
+      video.muted = !video.muted;
       updateMuteButton();
-      if (!vid.muted && vid.paused) {
-        var playPromise = vid.play();
+      if (!video.muted && video.paused) {
+        var playPromise = video.play();
         if (playPromise && playPromise.catch) playPromise.catch(function () {});
       }
     });
 
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
-      vid.removeAttribute('autoplay');
-      vid.pause();
+      video.removeAttribute('autoplay');
+      video.pause();
     } else {
-      /* Try unmuted playback first; fall back to muted autoplay if the browser
-         blocks sound-on autoplay, so the video itself remains visible/playing. */
-      vid.removeAttribute('muted');
-      vid.muted = false;
-      var tryPlay = vid.play && vid.play();
-      if (tryPlay && tryPlay.catch) {
-        tryPlay.catch(function () {
-          vid.muted = true;
+      var playPromise = video.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(function () {
+          /* Browsers may block autoplay with sound; fall back to muted autoplay. */
+          video.muted = true;
           updateMuteButton();
-          var mutedPlay = vid.play && vid.play();
+          var mutedPlay = video.play();
           if (mutedPlay && mutedPlay.catch) mutedPlay.catch(function () {});
         });
       }
