@@ -3,11 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Security: CSP + referrer policy (GitHub Pages cannot send custom headers) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
   <title>Shukla Car Driving School | Kanpur</title>
   <meta name="description" content="Shukla Car Driving School, Kanpur. Professional driving training with WagonR, Tata Tigor and Brezza. Two branches: Dasu Kuan and Yashoda Nagar. Driving simulator facility available.">
   <meta name="keywords" content="car driving school Kanpur, driving classes Kanpur, learn driving Kanpur, Shukla driving school, Dasu Kuan, Yashoda Nagar">
   <meta name="theme-color" content="#17243A">
+  <link rel="canonical" href="https://gopalgupta-tech.github.io/Driving_school/">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://gopalgupta-tech.github.io/Driving_school/">
   <meta property="og:title" content="Shukla Car Driving School | Learn to Drive with Confidence — Kanpur">
   <meta property="og:description" content="Professional driving training in Kanpur with multiple car options and simulator facility. Two convenient branches.">
 
@@ -21,7 +28,8 @@
     "@context": "https://schema.org",
     "@type": "DrivingSchool",
     "name": "Shukla Car Driving School",
-    "telephone": ["+918188939566", "+919559164630"],
+    "url": "https://gopalgupta-tech.github.io/Driving_school/",
+    "telephone": ["+918896768884", "+919559164630"],
     "address": [
       {"@type": "PostalAddress", "streetAddress": "Plot No. 128/123, Y-1 Block, Yashoda Nagar", "addressLocality": "Kanpur", "addressRegion": "Uttar Pradesh", "postalCode": "208011", "addressCountry": "IN"},
       {"@type": "PostalAddress", "streetAddress": "House No. 6, Dasu Kuan, Hamirpur Road, Naubasta", "addressLocality": "Kanpur", "addressRegion": "Uttar Pradesh", "postalCode": "208021", "addressCountry": "IN"}
@@ -32,7 +40,7 @@
 <body id="top">
 
 <!-- SVG icon sprite -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
   <defs>
     <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
@@ -60,7 +68,7 @@
 <div class="topbar">
   <div class="container topbar__inner">
     <div class="topbar__phones">
-      <a href="tel:+918188939566"><svg class="i"><use href="#i-phone"/></svg>+91 81889 39566</a>
+      <a href="tel:+918896768884"><svg class="i"><use href="#i-phone"/></svg>+91 88967 68884</a>
       <span class="topbar__sep" aria-hidden="true"></span>
       <a href="tel:+919559164630"><svg class="i"><use href="#i-phone"/></svg>+91 95591 64630</a>
     </div>
@@ -91,8 +99,9 @@
 
     <a href="#contact" class="btn btn--primary header__cta">Enquire Now <svg class="i"><use href="#i-arrow"/></svg></a>
 
-    <button class="hamburger" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu">
-      <svg class="i i--lg"><use href="#i-menu"/></svg>
+    <button class="hamburger" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu">
+      <svg class="i i--lg icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="i i--lg icon-close" aria-hidden="true"><use href="#i-close"/></svg>
     </button>
   </div>
 </header>
@@ -108,7 +117,7 @@
         <p class="hero__sub">Professional driving training in Kanpur with multiple car options, practical road experience and modern simulator facilities.</p>
         <div class="hero__actions">
           <a href="#cars" class="btn btn--primary btn--lg">Explore Training Cars <svg class="i"><use href="#i-arrow"/></svg></a>
-          <a href="tel:+918188939566" class="btn-link"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+          <a href="tel:+918896768884" class="btn-link"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
         </div>
       </div>
       <div class="hero__media">
@@ -280,8 +289,8 @@
           <h3><svg class="i"><use href="#i-pin"/></svg>Dasu Kuan</h3>
           <address>House No. 6, Dasu Kuan,<br>Hamirpur Road, Naubasta,<br>Kanpur, Uttar Pradesh – 208021</address>
           <div class="branch__actions">
-            <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=House+No.+6%2C+Dasu+Kuan%2C+Hamirpur+Road%2C+Naubasta%2C+Kanpur+208021" target="_blank" rel="noopener">Get Directions</a>
-            <a class="btn btn--ghost-light" href="tel:+918188939566"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+            <a class="btn btn--primary" href="https://maps.app.goo.gl/H8iJgj1z4xCxZ5rg9" target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <a class="btn btn--ghost-light" href="tel:+918896768884"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
           </div>
         </article>
         <article class="branch reveal">
@@ -289,8 +298,8 @@
           <h3><svg class="i"><use href="#i-pin"/></svg>White House, Yashoda Nagar</h3>
           <address>Plot No. 128/123, Y-1 Block,<br>Yashoda Nagar,<br>Kanpur, Uttar Pradesh – 208011</address>
           <div class="branch__actions">
-            <a class="btn btn--primary" href="https://www.google.com/maps/search/?api=1&amp;query=Plot+No.+128%2F123%2C+Y-1+Block%2C+Yashoda+Nagar%2C+Kanpur+208011" target="_blank" rel="noopener">Get Directions</a>
-            <a class="btn btn--ghost-light" href="tel:+918188939566"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+            <a class="btn btn--primary" href="https://maps.google.com/maps?ftid=0x399c4747d0a712fd:0xd0790978ae614e8e&amp;hl=en&amp;gl=in" target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <a class="btn btn--ghost-light" href="tel:+919559164630"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
           </div>
         </article>
       </div>
@@ -309,7 +318,7 @@
       <div class="contact">
         <div class="contact__info reveal">
           <h3>Phone Numbers</h3>
-          <p><a href="tel:+918188939566"><svg class="i"><use href="#i-phone"/></svg>+91 81889 39566</a></p>
+          <p><a href="tel:+918896768884"><svg class="i"><use href="#i-phone"/></svg>+91 88967 68884</a></p>
           <p><a href="tel:+919559164630"><svg class="i"><use href="#i-phone"/></svg>+91 95591 64630</a></p>
           <hr>
           <h3>Yashoda Nagar Branch</h3>
@@ -322,12 +331,12 @@
           <h3>Quick Enquiry</h3>
           <div class="field">
             <label for="fName">Full Name</label>
-            <input id="fName" name="name" type="text" autocomplete="name" required>
+            <input id="fName" name="name" type="text" autocomplete="name" maxlength="60" required>
             <span class="field__err" id="eName" role="alert"></span>
           </div>
           <div class="field">
             <label for="fMobile">Mobile Number</label>
-            <input id="fMobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit mobile number" required>
+            <input id="fMobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="10-digit mobile number" required>
             <span class="field__err" id="eMobile" role="alert"></span>
           </div>
           <div class="field-row">
@@ -353,7 +362,7 @@
           </div>
           <div class="field">
             <label for="fMsg">Message <span class="muted">(optional)</span></label>
-            <textarea id="fMsg" name="message" rows="3"></textarea>
+            <textarea id="fMsg" name="message" rows="3" maxlength="500"></textarea>
           </div>
           <button type="submit" class="btn btn--primary btn--lg btn--block"><svg class="i"><use href="#i-chat"/></svg>Send WhatsApp Enquiry</button>
           <p class="form__note">Opens WhatsApp with your enquiry. No data is stored on this website.</p>
@@ -393,7 +402,7 @@
     </div>
     <div>
       <h4>Contact</h4>
-      <p><a href="tel:+918188939566">+91 81889 39566</a><br><a href="tel:+919559164630">+91 95591 64630</a></p>
+      <p><a href="tel:+918896768884">+91 88967 68884</a><br><a href="tel:+919559164630">+91 95591 64630</a></p>
     </div>
   </div>
   <div class="container footer__bar">
@@ -403,8 +412,8 @@
 </footer>
 
 <!-- Floating WhatsApp -->
-<a class="wa-float" href="https://wa.me/919559164630" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
-  <svg class="i i--lg"><use href="#i-chat"/></svg>
+<a class="wa-float" href="https://wa.me/919559164630" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg class="i i--lg" aria-hidden="true"><use href="#i-chat"/></svg>
 </a>
 
 <!-- Mobile bottom nav -->
