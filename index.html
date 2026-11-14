@@ -1,395 +1,437 @@
-/* ==========================================================
-   Shukla Car Driving School — styles
-   Tokens → Base → Components → Sections → Responsive
-   ========================================================== */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/* ---------- Tokens ---------- */
-:root {
-  --navy-900: #0F1E33;
-  --navy-800: #17243A;
-  --navy-700: #1F3250;
-  --orange-500: #F26A1B;
-  --orange-600: #D9560E;
-  --orange-100: #FDE9DC;
-  --cream-50: #FAF6EF;
-  --white: #FFFFFF;
-  --mint-100: #CDEBDD;
-  --mint-200: #B5DFCB;
-  --green-500: #2E9E6B;
-  --text-900: #17243A;
-  --text-600: #5B6676;
-  --border: #E7E1D6;
+  <!-- Security: CSP + referrer policy (GitHub Pages cannot send custom headers) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; media-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  --font-head: "Poppins", "Segoe UI", system-ui, sans-serif;
-  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  <title>Shukla Car Driving School | Kanpur</title>
+  <meta name="description" content="Shukla Car Driving School, Kanpur. Professional driving training with WagonR, Tata Tigor and Brezza. Two branches: Dasu Kuan and Yashoda Nagar. Driving simulator facility available.">
+  <meta name="keywords" content="car driving school Kanpur, driving classes Kanpur, learn driving Kanpur, Shukla driving school, Dasu Kuan, Yashoda Nagar">
+  <meta name="theme-color" content="#17243A">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="favicon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="canonical" href="https://gopalgupta-tech.github.io/Driving_school/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://gopalgupta-tech.github.io/Driving_school/assets/images/logo.png">
+  <meta property="og:url" content="https://gopalgupta-tech.github.io/Driving_school/">
+  <meta property="og:title" content="Shukla Car Driving School | Learn to Drive with Confidence — Kanpur">
+  <meta property="og:description" content="Professional driving training in Kanpur with multiple car options and simulator facility. Two convenient branches.">
 
-  --r-card: 14px;
-  --r-pill: 999px;
-  --shadow-sm: 0 4px 14px rgba(15, 30, 51, .06);
-  --shadow-md: 0 10px 28px rgba(15, 30, 51, .10);
-  --header-h: 76px;
-  --container: 1200px;
-  --gutter: 32px;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
 
-/* ---------- Base ---------- */
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 8px); -webkit-text-size-adjust: 100%; }
-body {
-  margin: 0;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text-900);
-  background: var(--cream-50);
-  overflow-x: hidden;
-}
-img { max-width: 100%; height: auto; display: block; }
-a { color: inherit; text-decoration: none; }
-h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.2; margin: 0 0 .5em; color: var(--navy-800); }
-p { margin: 0 0 1em; }
-ul { margin: 0; padding: 0; list-style: none; }
-address { font-style: normal; }
-button, input, select, textarea { font: inherit; color: inherit; }
-:focus-visible { outline: 3px solid var(--orange-500); outline-offset: 2px; border-radius: 6px; }
-
-.container { width: 100%; max-width: calc(var(--container) + var(--gutter) * 2); margin: 0 auto; padding: 0 var(--gutter); }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
-.skip-link { position: absolute; left: -999px; top: 8px; background: var(--orange-500); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 100; }
-.skip-link:focus { left: 8px; }
-.muted { color: var(--text-600); }
-
-.i { width: 1.15em; height: 1.15em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-.i--lg { width: 1.6em; height: 1.6em; }
-.i--fill { fill: currentColor; stroke: none; }
-
-/* ---------- Buttons ---------- */
-.btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: .5em;
-  min-height: 46px; padding: 0 1.5em;
-  border: 2px solid transparent; border-radius: var(--r-pill);
-  font-family: var(--font-head); font-weight: 600; font-size: .95rem; cursor: pointer;
-  transition: background .2s, color .2s, border-color .2s, transform .2s, box-shadow .2s;
-}
-.btn .i { transition: transform .2s; }
-.btn:hover .i:last-child { transform: translateX(3px); }
-.btn--primary { background: var(--orange-500); color: #fff; box-shadow: 0 6px 16px rgba(242, 106, 27, .30); }
-.btn--primary:hover { background: var(--orange-600); }
-.btn--primary:active { transform: translateY(1px); }
-.btn--outline { background: transparent; color: var(--orange-600); border-color: var(--orange-500); }
-.btn--outline:hover { background: var(--orange-500); color: #fff; }
-.btn--ghost-light { background: transparent; color: #fff; border-color: rgba(255, 255, 255, .4); }
-.btn--ghost-light:hover { background: rgba(255, 255, 255, .12); }
-.btn--lg { min-height: 54px; font-size: 1rem; padding: 0 1.8em; }
-.btn--block { width: 100%; }
-.btn-link { display: inline-flex; align-items: center; gap: .5em; min-height: 46px; color: #fff; font-family: var(--font-head); font-weight: 600; font-size: 1.05rem; border-bottom: 2px solid var(--orange-500); padding: 0 2px; }
-.btn-link:hover { color: var(--orange-100); }
-
-/* ---------- Top bar ---------- */
-.topbar { background: var(--navy-900); color: #fff; font-size: .9rem; }
-.topbar__inner { display: flex; justify-content: space-between; align-items: center; min-height: 44px; gap: 16px; }
-.topbar__phones { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
-.topbar__phones a { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; }
-.topbar__phones .i { color: var(--orange-500); }
-.topbar__sep { width: 1px; height: 18px; background: rgba(255, 255, 255, .3); }
-.topbar__tag { margin: 0; font-style: italic; opacity: .9; }
-
-/* ---------- Header ---------- */
-.site-header { position: sticky; top: 0; z-index: 50; background: var(--cream-50); transition: box-shadow .25s; }
-.site-header.is-stuck { box-shadow: 0 6px 20px rgba(15, 30, 51, .12); }
-.header__inner { display: flex; align-items: center; gap: 28px; min-height: var(--header-h); }
-
-.brand { display: inline-flex; align-items: center; gap: 12px; flex: none; }
-.brand__logo { width: 64px; height: auto; border-radius: 50%; }
-.brand__text { display: flex; flex-direction: column; line-height: 1; }
-.brand__text strong { font-family: var(--font-head); font-weight: 800; font-size: 1.7rem; letter-spacing: .5px; color: var(--navy-800); }
-.brand__text small { font-family: var(--font-head); font-weight: 600; font-size: .66rem; letter-spacing: .6px; color: var(--orange-500); margin-top: 3px; }
-.brand--light .brand__text strong { color: #fff; }
-
-.nav { display: flex; align-items: center; gap: 6px; margin-left: auto; }
-.nav__link { padding: 9px 18px; border-radius: var(--r-pill); font-weight: 500; font-size: .98rem; color: var(--navy-800); transition: background .2s, color .2s; }
-.nav__link:hover { background: var(--orange-100); }
-.nav__link.is-active { background: var(--orange-500); color: #fff; }
-.nav__cta-mobile { display: none; }
-.header__cta { flex: none; }
-
-/* Hamburger — icons are swapped via aria-expanded (no JS DOM replacement) */
-.hamburger { display: none; margin-left: auto; width: 46px; height: 46px; align-items: center; justify-content: center; background: transparent; border: 0; border-radius: 12px; color: var(--navy-800); cursor: pointer; -webkit-tap-highlight-color: transparent; }
-.hamburger:hover { background: var(--orange-100); }
-.hamburger svg { pointer-events: none; }
-.hamburger .icon-close { display: none; }
-.hamburger[aria-expanded="true"] .icon-open { display: none; }
-.hamburger[aria-expanded="true"] .icon-close { display: block; }
-
-/* ---------- Typography helpers ---------- */
-.eyebrow { font-family: var(--font-head); font-weight: 600; font-size: .8rem; letter-spacing: 1.6px; text-transform: uppercase; color: var(--orange-600); margin-bottom: .6em; }
-.eyebrow--light { color: #FFB27F; }
-h2 { font-size: clamp(1.65rem, 3vw, 2.4rem); font-weight: 700; }
-h2 em { font-style: normal; color: var(--orange-500); }
-.h-line { display: flex; align-items: center; justify-content: center; gap: 18px; }
-.h-line::before, .h-line::after { content: ""; flex: 0 1 90px; height: 2px; background: var(--green-500); opacity: .6; }
-.tag { display: inline-block; font-size: .78rem; font-weight: 600; color: var(--text-600); background: var(--cream-50); border: 1px solid var(--border); padding: 3px 12px; border-radius: var(--r-pill); margin-bottom: .8em; }
-.tag--orange { background: var(--orange-500); color: #fff; border-color: transparent; }
-
-/* ---------- Sections ---------- */
-.section { padding: 88px 0; }
-.section--tight { padding: 24px 0 72px; }
-.section--tint { background: #F3EDE2; }
-.section__head { text-align: center; max-width: 720px; margin: 0 auto 48px; }
-.section__head p { color: var(--text-600); }
-.section__head--light h2, .section__head--light p { color: #fff; }
-.section__head--light p { opacity: .85; }
-.section__head--light .h-line::before, .section__head--light .h-line::after { background: var(--orange-500); }
-
-/* ---------- Hero ---------- */
-.hero { position: relative; background: linear-gradient(115deg, var(--navy-900) 0%, var(--navy-800) 55%, var(--navy-700) 100%); color: #fff; overflow: hidden; }
-.hero__bg { position: absolute; inset: 0; z-index: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; background: var(--navy-900); }
-.hero__overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(15, 30, 51, .88) 0%, rgba(15, 30, 51, .66) 48%, rgba(15, 30, 51, .30) 100%); pointer-events: none; }
-.hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr; align-content: center; min-height: clamp(400px, 62vh, 560px); padding-top: 64px; padding-bottom: 28px; }
-.hero__copy { max-width: 640px; }
-.vid-sound { position: absolute; top: 16px; right: 16px; z-index: 4; width: 48px; height: 48px; display: grid; place-items: center; border: 2px solid rgba(255, 255, 255, .55); border-radius: 50%; background: rgba(15, 30, 51, .72); color: #fff; cursor: pointer; backdrop-filter: blur(4px); transition: background .2s, transform .2s; -webkit-tap-highlight-color: transparent; }
-.vid-sound:hover { background: var(--orange-500); border-color: var(--orange-500); }
-.vid-sound:active { transform: scale(.94); }
-.vid-sound svg { pointer-events: none; }
-.vid-sound .icon-off { display: none; }
-.vid-sound[data-muted="true"] .icon-on { display: none; }
-.vid-sound[data-muted="true"] .icon-off { display: block; }
-.hero h1 { color: #fff; font-size: clamp(2.2rem, 5vw, 3.9rem); font-weight: 700; margin-bottom: .45em; }
-.hero h1 span { color: var(--orange-500); }
-.hero__sub { font-size: clamp(1rem, 1.6vw, 1.2rem); max-width: 520px; color: #E3E9F2; }
-.hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 26px; margin-top: 28px; }
-
-.stats { position: relative; z-index: 2; display: flex; gap: 0; padding: 22px 0 28px; border-top: 1px solid rgba(255, 255, 255, .12); margin-top: 8px; }
-.stats li { display: flex; align-items: center; gap: 14px; padding: 0 36px; }
-.stats li + li { border-left: 1px solid rgba(255, 255, 255, .2); }
-.stats li:first-child { padding-left: 0; }
-.stats .i { color: var(--mint-200); }
-.stats strong { display: block; font-family: var(--font-head); font-size: 1.35rem; line-height: 1.1; }
-.stats span { font-size: .9rem; color: #D5DDE9; }
-
-/* ---------- About ---------- */
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
-.about__media { border-radius: 22px; overflow: hidden; box-shadow: var(--shadow-md); aspect-ratio: 4 / 3; }
-.about__media img { width: 100%; height: 100%; object-fit: cover; }
-.about__copy p { color: var(--text-600); }
-.about__cards { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.mini { display: flex; flex-direction: column; gap: 4px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); padding: 22px; box-shadow: var(--shadow-sm); }
-.mini strong { font-family: var(--font-head); font-size: 1.05rem; }
-.mini > span:last-child { color: var(--text-600); font-size: .92rem; }
-.mini__icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 12px; background: var(--mint-100); color: var(--green-500); margin-bottom: 8px; }
-
-/* ---------- Cars ---------- */
-.cars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.car { display: flex; flex-direction: column; background: var(--white); border-radius: var(--r-card); box-shadow: var(--shadow-sm); border-left: 5px solid var(--orange-500); overflow: hidden; transition: transform .25s, box-shadow .25s; }
-.car:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
-.car__media { background: linear-gradient(180deg, #F3EDE2, #fff); padding: 18px 18px 0; aspect-ratio: 16 / 10; display: grid; place-items: center; }
-.car__media img { max-height: 100%; width: auto; object-fit: contain; }
-.car__body { padding: 22px 24px 26px; display: flex; flex-direction: column; flex: 1; }
-.car h3 { font-size: 1.3rem; margin-bottom: .2em; }
-.price { font-family: var(--font-head); font-weight: 700; font-size: 2rem; color: var(--orange-500); margin: 0 0 .4em; line-height: 1.1; }
-.price small { font-size: .95rem; font-weight: 500; color: var(--text-600); }
-.car__desc { color: var(--text-600); font-size: .95rem; }
-.ticks { display: grid; gap: 8px; margin-bottom: 20px; font-size: .94rem; }
-.ticks li { display: flex; align-items: center; gap: 10px; }
-.ticks .i { color: var(--green-500); width: 1.1em; height: 1.1em; stroke-width: 3; }
-.car .btn { margin-top: auto; align-self: flex-start; }
-.note { display: flex; align-items: flex-start; gap: 10px; margin: 32px auto 0; max-width: 760px; padding: 14px 18px; background: var(--white); border: 1px dashed var(--orange-500); border-radius: 12px; color: var(--text-600); font-size: .92rem; }
-.note .i { color: var(--orange-500); margin-top: 3px; }
-
-/* ---------- Simulator ---------- */
-.sim { display: grid; grid-template-columns: 380px 1.2fr 1fr; align-items: center; gap: 32px; background: var(--mint-100); border-radius: 24px; overflow: hidden; padding-right: 36px; }
-.sim__media { align-self: stretch; position: relative; background: linear-gradient(135deg, var(--orange-500), #F8A36B); min-height: 380px; }
-.sim__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.sim__copy { padding: 28px 0; }
-.sim__copy h2 { font-size: clamp(1.45rem, 2.4vw, 2rem); }
-.sim__copy > p { color: #2D4A40; }
-.ticks--inline { margin: 0; }
-.sim__panel { display: grid; gap: 14px; padding: 28px 0 28px 32px; border-left: 1px solid rgba(23, 36, 58, .18); }
-.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-.seg__btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 46px; border-radius: var(--r-pill); border: 2px solid rgba(23, 36, 58, .35); background: transparent; font-family: var(--font-head); font-weight: 600; cursor: pointer; transition: all .2s; }
-.seg__btn.is-on { background: var(--orange-500); border-color: var(--orange-500); color: #fff; }
-.seg__btn:not(.is-on):hover { background: rgba(255, 255, 255, .6); }
-.select { position: relative; display: block; }
-.select select { appearance: none; -webkit-appearance: none; width: 100%; min-height: 48px; padding: 0 44px 0 44px; background: var(--white); border: 1px solid var(--border); border-radius: var(--r-pill); cursor: pointer; }
-.select__pin, .select__chev { position: absolute; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--text-600); }
-.select__pin { left: 16px; }
-.select__chev { right: 16px; }
-
-/* ---------- Offer ---------- */
-.offer { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
-.feature { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-card); padding: 28px; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s; }
-.feature:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
-.feature__icon { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 14px; background: var(--orange-100); color: var(--orange-500); margin-bottom: 16px; }
-.feature h3 { font-size: 1.15rem; }
-.feature p { color: var(--text-600); margin: 0; font-size: .95rem; }
-
-/* ---------- Branches ---------- */
-.branches { position: relative; background: linear-gradient(180deg, var(--navy-900), var(--navy-800)); padding: 88px 0; overflow: hidden; }
-.branches::after { content: ""; position: absolute; right: 0; bottom: 0; width: 55%; height: 55%; background: radial-gradient(ellipse at 80% 100%, rgba(242, 106, 27, .18), transparent 65%); pointer-events: none; }
-.branches .container { position: relative; z-index: 1; }
-.branch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-.branch { background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--r-card); padding: 28px; color: #E6ECF5; backdrop-filter: blur(4px); }
-.branch h3 { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 1.3rem; }
-.branch h3 .i { color: var(--orange-500); }
-.branch address { color: #C9D3E2; margin-bottom: 20px; }
-.branch__actions { display: flex; flex-wrap: wrap; gap: 12px; }
-
-/* ---------- Contact ---------- */
-.contact { display: grid; grid-template-columns: .9fr 1.1fr; gap: 32px; align-items: start; }
-.contact__info, .form { background: var(--white); border: 1px solid var(--border); border-radius: 18px; padding: 32px; box-shadow: var(--shadow-sm); }
-.contact__info h3 { font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--orange-600); margin-bottom: .4em; }
-.contact__info p { margin-bottom: .8em; }
-.contact__info a { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-head); font-weight: 600; font-size: 1.25rem; }
-.contact__info a .i { color: var(--orange-500); }
-.contact__info hr { border: 0; border-top: 1px solid var(--border); margin: 20px 0; }
-.form h3 { font-size: 1.4rem; margin-bottom: 1em; }
-.field { display: grid; gap: 6px; margin-bottom: 16px; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.field label { font-weight: 600; font-size: .9rem; }
-.field input, .field select, .field textarea { width: 100%; min-height: 48px; padding: 10px 14px; background: #FDFBF7; border: 1.5px solid var(--border); border-radius: 12px; transition: border-color .2s, box-shadow .2s; }
-.field textarea { resize: vertical; min-height: 96px; }
-.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--orange-500); box-shadow: 0 0 0 4px rgba(242, 106, 27, .15); }
-.field.has-error input { border-color: #C62828; }
-.field__err { color: #C62828; font-size: .82rem; min-height: 0; }
-.form__note { text-align: center; font-size: .85rem; color: var(--text-600); margin: 14px 0 0; }
-
-/* ---------- Footer ---------- */
-.footer { background: var(--navy-900); color: #C9D3E2; padding-top: 64px; border-top: 4px solid var(--orange-500); }
-.footer__grid { display: grid; grid-template-columns: 1.4fr .8fr 1.4fr 1fr; gap: 40px; padding-bottom: 40px; }
-.footer h4 { color: #fff; font-size: 1rem; margin-bottom: 1em; }
-.footer li { margin-bottom: .5em; }
-.footer a:hover { color: var(--orange-500); }
-.footer p { font-size: .93rem; }
-.footer strong { color: #fff; }
-.footer__blurb { margin-top: 16px; max-width: 320px; }
-.footer__bar { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-top: 20px; padding-bottom: 24px; border-top: 1px solid rgba(255, 255, 255, .12); font-size: .88rem; }
-.footer__bar p { margin: 0; }
-
-/* ---------- Floating + bottom nav ---------- */
-.wa-float .i { width: 30px; height: 30px; }
-.wa-float { position: fixed; right: 20px; bottom: 20px; z-index: 60; width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; background: #25D366; color: #fff; box-shadow: 0 10px 24px rgba(0, 0, 0, .28); border: 3px solid #fff; transition: transform .2s; }
-.wa-float:hover { transform: scale(1.08); }
-.bottom-nav { display: none; }
-
-/* ---------- Reveal ---------- */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity .5s ease, transform .5s ease; }
-.reveal.in { opacity: 1; transform: none; }
-
-/* ==========================================================
-   Responsive
-   ========================================================== */
-
-/* Laptop small / large tablet landscape */
-@media (max-width: 1100px) {
-  :root { --gutter: 24px; }
-  .nav__link { padding: 8px 12px; font-size: .92rem; }
-  .header__inner { gap: 16px; }
-  .brand__logo { width: 58px; }
-  .brand__text strong { font-size: 1.45rem; }
-  .sim { grid-template-columns: 300px 1fr; padding-right: 0; }
-  .sim__media { min-height: 420px; } /* tablet: taller image */
-  .sim__panel { grid-column: 1 / -1; border-left: 0; border-top: 1px solid rgba(23, 36, 58, .18); padding: 24px 28px; grid-template-columns: 1.2fr 1.2fr auto; align-items: center; }
-  .sim__copy { padding-right: 24px; }
-  .footer__grid { grid-template-columns: 1fr 1fr; }
-}
-
-/* Tablet: collapse nav into hamburger */
-@media (max-width: 899px) {
-  :root { --header-h: 68px; }
-  .hamburger { display: inline-flex; }
-  .header__cta { display: none; }
-  .nav {
-    position: absolute; top: 100%; left: 0; right: 0;
-    flex-direction: column; align-items: stretch; gap: 4px;
-    background: var(--cream-50); padding: 12px var(--gutter) 20px;
-    border-top: 1px solid var(--border); box-shadow: 0 16px 24px rgba(15, 30, 51, .12);
-    transform: translateY(-8px); opacity: 0; visibility: hidden; pointer-events: none;
-    transition: transform .22s, opacity .22s, visibility .22s;
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DrivingSchool",
+    "name": "Shukla Car Driving School",
+    "url": "https://gopalgupta-tech.github.io/Driving_school/",
+    "logo": "https://gopalgupta-tech.github.io/Driving_school/assets/images/logo.png",
+    "image": "https://gopalgupta-tech.github.io/Driving_school/assets/images/logo.png",
+    "telephone": ["+918896768884", "+919559164630"],
+    "address": [
+      {"@type": "PostalAddress", "streetAddress": "Plot No. 128/123, Y-1 Block, Yashoda Nagar", "addressLocality": "Kanpur", "addressRegion": "Uttar Pradesh", "postalCode": "208011", "addressCountry": "IN"},
+      {"@type": "PostalAddress", "streetAddress": "House No. 6, Dasu Kuan, Hamirpur Road, Naubasta", "addressLocality": "Kanpur", "addressRegion": "Uttar Pradesh", "postalCode": "208021", "addressCountry": "IN"}
+    ]
   }
-  .nav.is-open { transform: none; opacity: 1; visibility: visible; pointer-events: auto; }
-  .nav__link { padding: 14px 16px; font-size: 1.02rem; }
-  .nav__cta-mobile { display: inline-flex; margin-top: 10px; }
+  </script>
+</head>
+<body id="top">
 
-  .hero__inner { padding-top: 44px; min-height: 420px; }
+<!-- SVG icon sprite -->
+<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h18"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-car" viewBox="0 0 24 24"><path d="M3 17h18v-4l-2-6a2 2 0 0 0-2-1H7a2 2 0 0 0-2 1l-2 6z"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/></symbol>
+    <symbol id="i-wheel" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/><path d="M12 14v8M10 12H2.5M14 12h7.5"/></symbol>
+    <symbol id="i-road" viewBox="0 0 24 24"><path d="M4 20 9 4M20 20 15 4M12 6v2M12 11v2M12 16v2"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+    <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14"/></symbol>
+    <symbol id="i-volume-off" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M23 9l-6 6M17 9l6 6"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  </defs>
+</svg>
 
-  .about { grid-template-columns: 1fr; gap: 32px; }
-  .about__cards { grid-template-columns: repeat(2, 1fr); }
-  .cars { grid-template-columns: repeat(2, 1fr); }
-  .offer { grid-template-columns: repeat(2, 1fr); }
-  .contact { grid-template-columns: 1fr; }
-  .section { padding: 64px 0; }
-  .branches { padding: 64px 0; }
-}
+<a class="skip-link" href="#main">Skip to content</a>
 
-/* Mobile */
-@media (max-width: 767px) {
-  body { padding-bottom: 68px; }
-  :root { --gutter: 16px; }
-  .topbar__tag, .topbar__sep { display: none; }
-  .topbar__phones { gap: 12px; font-size: .85rem; }
-  .brand__logo { width: 50px; }
-  .brand__text strong { font-size: 1.25rem; }
-  .brand__text small { font-size: .56rem; }
+<!-- Top bar -->
+<div class="topbar">
+  <div class="container topbar__inner">
+    <div class="topbar__phones">
+      <a href="tel:+918896768884"><svg class="i"><use href="#i-phone"/></svg>+91 88967 68884</a>
+      <span class="topbar__sep" aria-hidden="true"></span>
+      <a href="tel:+919559164630"><svg class="i"><use href="#i-phone"/></svg>+91 95591 64630</a>
+    </div>
+    <p class="topbar__tag">Safe Drive <span aria-hidden="true">•</span> Better Future</p>
+  </div>
+</div>
 
-  .hero__inner { padding-top: 32px; min-height: 380px; }
-  .hero__overlay { background: linear-gradient(180deg, rgba(15, 30, 51, .72), rgba(15, 30, 51, .82)); }
-  .vid-sound { top: 12px; right: 12px; width: 44px; height: 44px; }
-  .hero__actions { gap: 16px; }
-  .hero__actions .btn { width: 100%; }
-  .stats { padding: 18px 0 22px; }
-  .stats li { flex: 1; flex-direction: column; text-align: center; gap: 6px; padding: 0 6px; }
-  .stats li:first-child { padding-left: 6px; }
-  .stats li > div strong { font-size: 1.15rem; }
-  .stats span { font-size: .78rem; }
+<!-- Header -->
+<header class="site-header" id="siteHeader">
+  <div class="container header__inner">
+    <a class="brand" href="#top" aria-label="Shukla Car Driving School — home">
+      <img class="brand__logo" src="assets/images/logo.png" alt="" width="64" height="64">
+      <span class="brand__text"><strong>SHUKLA</strong><small>CAR DRIVING SCHOOL</small></span>
+    </a>
 
-  .section { padding: 48px 0; }
-  .section--tight { padding: 8px 0 48px; }
-  .section__head { margin-bottom: 32px; }
-  .h-line::before, .h-line::after { flex-basis: 28px; }
+    <nav class="nav" id="primaryNav" aria-label="Primary">
+      <a href="#top" class="nav__link is-active" data-spy="top">Home</a>
+      <a href="#about" class="nav__link" data-spy="about">About</a>
+      <a href="#cars" class="nav__link" data-spy="cars">Cars &amp; Fees</a>
+      <a href="#simulator" class="nav__link" data-spy="simulator">Simulator</a>
+      <a href="#branches" class="nav__link" data-spy="branches">Branches</a>
+      <a href="#contact" class="nav__link" data-spy="contact">Contact</a>
+      <a href="#contact" class="btn btn--primary nav__cta-mobile">Enquire Now <svg class="i"><use href="#i-arrow"/></svg></a>
+    </nav>
 
-  .about__cards { gap: 12px; }
-  .mini { padding: 16px; }
-  .cars { grid-template-columns: 1fr; }
-  .offer { grid-template-columns: 1fr; gap: 16px; }
-  .feature { padding: 22px; }
+    <a href="#contact" class="btn btn--primary header__cta">Enquire Now <svg class="i"><use href="#i-arrow"/></svg></a>
 
-  .sim { grid-template-columns: 1fr; border-radius: 20px; }
-  .sim__media { min-height: 300px; }
-  .sim__copy { padding: 20px 20px 0; }
-  .sim__panel { grid-template-columns: 1fr; padding: 20px; }
+    <button class="hamburger" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Open menu">
+      <svg class="i i--lg icon-open" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="i i--lg icon-close" aria-hidden="true"><use href="#i-close"/></svg>
+    </button>
+  </div>
+</header>
 
-  .branch-grid { grid-template-columns: 1fr; }
-  .branch { padding: 22px; }
-  .branches { padding: 48px 0; }
+<main id="main">
 
-  .contact__info, .form { padding: 22px; }
-  .field-row { grid-template-columns: 1fr; gap: 0; }
+  <!-- Hero -->
+  <section class="hero">
+    <video class="hero__bg" id="heroVideo" autoplay muted loop playsinline preload="metadata" poster="assets/images/image.png" aria-label="Shukla Car Driving School training fleet — Maruti Suzuki WagonR, Tata Tigor and Maruti Suzuki Brezza">
+      <source src="assets/images/three-cars.mp4" type="video/mp4">
+    </video>
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <button type="button" class="vid-sound" id="vidSound" data-muted="false" aria-pressed="true" aria-label="Mute video">
+      <svg class="i i--lg icon-on" aria-hidden="true"><use href="#i-volume"/></svg>
+      <svg class="i i--lg icon-off" aria-hidden="true"><use href="#i-volume-off"/></svg>
+    </button>
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow eyebrow--light">Shukla Car Driving School · Kanpur</p>
+        <h1>Learn to Drive.<br>Drive with <span>Confidence.</span></h1>
+        <p class="hero__sub">Professional driving training in Kanpur with multiple car options, practical road experience and modern simulator facilities.</p>
+        <div class="hero__actions">
+          <a href="#cars" class="btn btn--primary btn--lg">Explore Training Cars <svg class="i"><use href="#i-arrow"/></svg></a>
+          <a href="tel:+918896768884" class="btn-link"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <ul class="stats" aria-label="School highlights">
+        <li><svg class="i i--lg"><use href="#i-car"/></svg><div><strong>3</strong><span>Training Cars</span></div></li>
+        <li><svg class="i i--lg"><use href="#i-pin"/></svg><div><strong>2</strong><span>Branch Locations</span></div></li>
+        <li><svg class="i i--lg"><use href="#i-wheel"/></svg><div><strong>1</strong><span>Simulator Available</span></div></li>
+      </ul>
+    </div>
+  </section>
 
-  .footer__grid { grid-template-columns: 1fr; gap: 28px; }
-  .footer__bar { flex-direction: column; text-align: center; }
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container about">
+      <div class="about__media reveal">
+        <img src="assets/images/image.png" alt="Shukla Car Driving School training cars in Kanpur" loading="lazy">
+      </div>
+      <div class="about__copy reveal">
+        <p class="eyebrow">About the School</p>
+        <h2>Your Journey Towards <em>Confident Driving</em> Starts Here.</h2>
+        <p>Shukla Car Driving School offers structured, practical driving training across two Kanpur locations. Our training fleet includes a Maruti Suzuki WagonR, Tata Tigor and Maruti Suzuki Brezza — giving learners the flexibility to choose the vehicle that suits their comfort and training goals.</p>
+        <p>We also provide simulator-based familiarisation to help new learners understand vehicle controls before moving to road training.</p>
+      </div>
+      <ul class="about__cards">
+        <li class="mini reveal"><span class="mini__icon"><svg class="i"><use href="#i-car"/></svg></span><strong>3 Training Vehicles</strong><span>Choose the car that suits your comfort.</span></li>
+        <li class="mini reveal"><span class="mini__icon"><svg class="i"><use href="#i-pin"/></svg></span><strong>2 Locations</strong><span>Dasu Kuan &amp; Yashoda Nagar.</span></li>
+        <li class="mini reveal"><span class="mini__icon"><svg class="i"><use href="#i-clock"/></svg></span><strong>Flexible Enquiries</strong><span>Contact us to confirm schedules.</span></li>
+        <li class="mini reveal"><span class="mini__icon"><svg class="i"><use href="#i-wheel"/></svg></span><strong>Simulator Training</strong><span>Build control awareness first.</span></li>
+      </ul>
+    </div>
+  </section>
 
-  .wa-float { bottom: 82px; right: 14px; width: 54px; height: 54px; }
+  <!-- Cars & Fees -->
+  <section class="section section--tint" id="cars">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Training Fleet</p>
+        <h2 class="h-line">Our Training Cars</h2>
+        <p>Choose the training car that feels right. All fees are monthly — confirm availability and schedule directly with the school before enrolment.</p>
+      </header>
 
-  .bottom-nav {
-    display: grid; grid-template-columns: repeat(5, 1fr);
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 55;
-    background: var(--white); border-top: 1px solid var(--border);
-    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
-    box-shadow: 0 -6px 18px rgba(15, 30, 51, .08);
-  }
-  .bottom-nav a { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; font-size: .68rem; font-weight: 500; color: var(--text-600); min-height: 48px; justify-content: center; border-radius: 10px; }
-  .bottom-nav a .i { width: 1.35em; height: 1.35em; }
-  .bottom-nav a.is-active { color: var(--orange-500); }
-}
+      <div class="cars">
+        <article class="car reveal">
+          <div class="car__media"><img src="assets/images/wagon_r.png" alt="Maruti Suzuki WagonR training car at Shukla Driving School" loading="lazy"></div>
+          <div class="car__body">
+            <p class="tag">Hatchback · City-Friendly</p>
+            <h3>Maruti Suzuki WagonR</h3>
+            <p class="price">₹2,500 <small>/ Month</small></p>
+            <p class="car__desc">A compact hatchback well-suited for learners who want to get comfortable with everyday city driving.</p>
+            <ul class="ticks">
+              <li><svg class="i"><use href="#i-check"/></svg>Easy to Drive</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Best for Beginners</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Fuel Efficient</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" data-car="WagonR — ₹2,500/month">Enquire Now <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
 
-@media (max-width: 380px) {
-  .about__cards { grid-template-columns: 1fr; }
-  .bottom-nav a { font-size: .62rem; }
-}
+        <article class="car reveal">
+          <div class="car__media"><img src="assets/images/tiago.png" alt="Tata Tigor training car at Shukla Driving School" loading="lazy"></div>
+          <div class="car__body">
+            <p class="tag">Sedan · Comfort &amp; Control</p>
+            <h3>Tata Tigor</h3>
+            <p class="price">₹3,800 <small>/ Month</small></p>
+            <p class="car__desc">Learn in a sedan for a different driving feel, comfortable seating and a confident road presence.</p>
+            <ul class="ticks">
+              <li><svg class="i"><use href="#i-check"/></svg>Smooth Handling</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Comfortable Ride</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Ideal for City &amp; Highway</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" data-car="Tata Tigor — ₹3,800/month">Enquire Now <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
-  .reveal { opacity: 1; transform: none; }
-}
+        <article class="car reveal">
+          <div class="car__media"><img src="assets/images/brezza.png" alt="Maruti Suzuki Brezza training car at Shukla Driving School" loading="lazy"></div>
+          <div class="car__body">
+            <p class="tag">SUV · SUV Experience</p>
+            <h3>Maruti Suzuki Brezza</h3>
+            <p class="price">₹4,500 <small>/ Month</small></p>
+            <p class="car__desc">Build familiarity with an SUV-style vehicle and a higher driving position — ideal for learners planning to own one.</p>
+            <ul class="ticks">
+              <li><svg class="i"><use href="#i-check"/></svg>Powerful Performance</li>
+              <li><svg class="i"><use href="#i-check"/></svg>Modern Features</li>
+              <li><svg class="i"><use href="#i-check"/></svg>High Safety</li>
+            </ul>
+            <a href="#contact" class="btn btn--outline" data-car="Brezza — ₹4,500/month">Enquire Now <svg class="i"><use href="#i-arrow"/></svg></a>
+          </div>
+        </article>
+      </div>
+
+      <p class="note"><svg class="i"><use href="#i-info"/></svg>Fees shown are monthly prices. Please confirm availability, timings and inclusions directly with the school before enrolment.</p>
+    </div>
+  </section>
+
+  <!-- Simulator -->
+  <section class="section section--tight" id="simulator">
+    <div class="container">
+      <div class="sim reveal">
+        <div class="sim__media">
+          <img src="assets/images/simulator.png" alt="Driving simulator at Shukla Car Driving School — dashboard, steering and controls for learner training" loading="lazy">
+        </div>
+        <div class="sim__copy">
+          <p class="eyebrow">Driving Simulator</p>
+          <h2>Start with the simulator.<br>Progress to the road.</h2>
+          <p>Get familiar with steering, dashboard controls and the driving environment in a safe, controlled environment — a valuable first step before taking the wheel on the road.</p>
+          <ul class="ticks ticks--inline">
+            <li><svg class="i"><use href="#i-check"/></svg>Understand vehicle controls before road training</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Build familiarity with steering and dashboard</li>
+            <li><svg class="i"><use href="#i-check"/></svg>Suitable for beginners with no prior experience</li>
+          </ul>
+        </div>
+        <div class="sim__panel">
+          <div class="seg" role="group" aria-label="Learner level">
+            <button type="button" class="seg__btn is-on" data-level="Beginner" aria-pressed="true"><svg class="i"><use href="#i-user"/></svg>Beginner</button>
+            <button type="button" class="seg__btn" data-level="Refresher" aria-pressed="false"><svg class="i"><use href="#i-refresh"/></svg>Refresher</button>
+          </div>
+          <label class="select">
+            <span class="sr-only">Select branch</span>
+            <svg class="i select__pin"><use href="#i-pin"/></svg>
+            <select id="simBranch">
+              <option value="">Select Branch</option>
+              <option>Dasu Kuan</option>
+              <option>White House, Yashoda Nagar</option>
+            </select>
+            <svg class="i select__chev"><use href="#i-chev"/></svg>
+          </label>
+          <a href="#contact" class="btn btn--primary btn--block" id="simStart">Start Learning <svg class="i"><use href="#i-arrow"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What we offer -->
+  <section class="section">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Why Choose Us</p>
+        <h2 class="h-line">What We Offer</h2>
+        <p>An honest overview of what Shukla Car Driving School provides for your driving training journey.</p>
+      </header>
+      <div class="offer">
+        <article class="feature reveal"><span class="feature__icon"><svg class="i i--lg"><use href="#i-car"/></svg></span><h3>Multiple Training Cars</h3><p>WagonR, Tata Tigor and Brezza — choose the vehicle that suits your learning goals and comfort level.</p></article>
+        <article class="feature reveal"><span class="feature__icon"><svg class="i i--lg"><use href="#i-wheel"/></svg></span><h3>Driving Simulator</h3><p>Familiarise yourself with controls and the driving environment before moving to real road training.</p></article>
+        <article class="feature reveal"><span class="feature__icon"><svg class="i i--lg"><use href="#i-road"/></svg></span><h3>Practical Road Experience</h3><p>Hands-on training on actual roads to build real driving confidence and awareness.</p></article>
+        <article class="feature reveal"><span class="feature__icon"><svg class="i i--lg"><use href="#i-pin"/></svg></span><h3>Two Convenient Locations</h3><p>Choose the branch closest to you — Dasu Kuan or Yashoda Nagar, both in Kanpur.</p></article>
+        <article class="feature reveal"><span class="feature__icon"><svg class="i i--lg"><use href="#i-chat"/></svg></span><h3>Flexible Training Enquiries</h3><p>Contact us via WhatsApp or phone to discuss schedules, vehicle availability and your training plan.</p></article>
+        <article class="feature reveal"><span class="feature__icon"><svg class="i i--lg"><use href="#i-shield"/></svg></span><h3>Professional Environment</h3><p>A dedicated driving school with a structured approach to helping beginners gain road-ready skills.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Branches -->
+  <section class="branches" id="branches">
+    <div class="container">
+      <header class="section__head section__head--light reveal">
+        <p class="eyebrow eyebrow--light">Our Branches</p>
+        <h2>Two Locations in Kanpur</h2>
+        <p>Choose the branch that works best for you. Both offer the same training vehicles and facilities.</p>
+      </header>
+      <div class="branch-grid">
+        <article class="branch reveal">
+          <p class="tag tag--orange">Branch 01</p>
+          <h3><svg class="i"><use href="#i-pin"/></svg>Dasu Kuan</h3>
+          <address>House No. 6, Dasu Kuan,<br>Hamirpur Road, Naubasta,<br>Kanpur, Uttar Pradesh – 208021</address>
+          <div class="branch__actions">
+            <a class="btn btn--primary" href="https://maps.app.goo.gl/H8iJgj1z4xCxZ5rg9" target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <a class="btn btn--ghost-light" href="tel:+918896768884"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+          </div>
+        </article>
+        <article class="branch reveal">
+          <p class="tag tag--orange">Branch 02</p>
+          <h3><svg class="i"><use href="#i-pin"/></svg>White House, Yashoda Nagar</h3>
+          <address>Plot No. 128/123, Y-1 Block,<br>Yashoda Nagar,<br>Kanpur, Uttar Pradesh – 208011</address>
+          <div class="branch__actions">
+            <a class="btn btn--primary" href="https://maps.google.com/maps?ftid=0x399c4747d0a712fd:0xd0790978ae614e8e&amp;hl=en&amp;gl=in" target="_blank" rel="noopener noreferrer">Get Directions</a>
+            <a class="btn btn--ghost-light" href="tel:+919559164630"><svg class="i"><use href="#i-phone"/></svg>Call Now</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section section--tint" id="contact">
+    <div class="container">
+      <header class="section__head reveal">
+        <p class="eyebrow">Get in Touch</p>
+        <h2 class="h-line">Ready to Start <em>Your Training?</em></h2>
+        <p>Send us an enquiry, call directly or message on WhatsApp. We'll help you choose the right car, branch and schedule.</p>
+      </header>
+
+      <div class="contact">
+        <div class="contact__info reveal">
+          <h3>Phone Numbers</h3>
+          <p><a href="tel:+918896768884"><svg class="i"><use href="#i-phone"/></svg>+91 88967 68884</a></p>
+          <p><a href="tel:+919559164630"><svg class="i"><use href="#i-phone"/></svg>+91 95591 64630</a></p>
+          <hr>
+          <h3>Yashoda Nagar Branch</h3>
+          <p class="muted">Plot No. 128/123, Y-1 Block, Yashoda Nagar, Kanpur – 208011</p>
+          <h3>Dasu Kuan Branch</h3>
+          <p class="muted">House No. 6, Dasu Kuan, Hamirpur Road, Naubasta, Kanpur – 208021</p>
+        </div>
+
+        <form class="form reveal" id="enquiryForm" novalidate>
+          <h3>Quick Enquiry</h3>
+          <div class="field">
+            <label for="fName">Full Name</label>
+            <input id="fName" name="name" type="text" autocomplete="name" maxlength="60" required>
+            <span class="field__err" id="eName" role="alert"></span>
+          </div>
+          <div class="field">
+            <label for="fMobile">Mobile Number</label>
+            <input id="fMobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel" maxlength="14" placeholder="10-digit mobile number" required>
+            <span class="field__err" id="eMobile" role="alert"></span>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="fCar">Preferred Car</label>
+              <select id="fCar" name="car">
+                <option value="">Choose a car</option>
+                <option>WagonR — ₹2,500/month</option>
+                <option>Tata Tigor — ₹3,800/month</option>
+                <option>Brezza — ₹4,500/month</option>
+                <option>Need help choosing</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="fBranch">Preferred Branch</label>
+              <select id="fBranch" name="branch">
+                <option value="">Choose branch</option>
+                <option>Dasu Kuan</option>
+                <option>White House, Yashoda Nagar</option>
+                <option>Either branch</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fMsg">Message <span class="muted">(optional)</span></label>
+            <textarea id="fMsg" name="message" rows="3" maxlength="500"></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary btn--lg btn--block"><svg class="i i--fill"><use href="#i-whatsapp"/></svg>Send WhatsApp Enquiry</button>
+          <p class="form__note">Opens WhatsApp with your enquiry. No data is stored on this website.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container footer__grid">
+    <div>
+      <a class="brand brand--light" href="#top" aria-label="Shukla Car Driving School — home">
+        <img class="brand__logo" src="assets/images/logo.png" alt="" width="64" height="64">
+        <span class="brand__text"><strong>SHUKLA</strong><small>CAR DRIVING SCHOOL</small></span>
+      </a>
+      <p class="footer__blurb">Professional driving training in Kanpur with multiple car options and simulator facilities across two convenient branch locations.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#cars">Cars &amp; Fees</a></li>
+        <li><a href="#simulator">Simulator</a></li>
+        <li><a href="#branches">Branches</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Our Branches</h4>
+      <p><strong>Dasu Kuan</strong><br>House No. 6, Dasu Kuan, Hamirpur Road, Naubasta, Kanpur – 208021</p>
+      <p><strong>Yashoda Nagar</strong><br>Plot No. 128/123, Y-1 Block, Yashoda Nagar, Kanpur – 208011</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="tel:+918896768884">+91 88967 68884</a><br><a href="tel:+919559164630">+91 95591 64630</a></p>
+    </div>
+  </div>
+  <div class="container footer__bar">
+    <p>© <span id="year"></span> Shukla Car Driving School. All rights reserved.</p>
+    <a href="#top">Back to top ↑</a>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp -->
+<a class="wa-float" href="https://wa.me/919559164630" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+  <svg class="i i--lg i--fill" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+</a>
+
+<!-- Mobile bottom nav -->
+<nav class="bottom-nav" aria-label="Quick navigation">
+  <a href="#top" data-spy="top" class="is-active"><svg class="i"><use href="#i-home"/></svg>Home</a>
+  <a href="#about" data-spy="about"><svg class="i"><use href="#i-info"/></svg>About</a>
+  <a href="#cars" data-spy="cars"><svg class="i"><use href="#i-car"/></svg>Cars &amp; Fees</a>
+  <a href="#branches" data-spy="branches"><svg class="i"><use href="#i-pin"/></svg>Branches</a>
+  <a href="#contact" data-spy="contact"><svg class="i"><use href="#i-phone"/></svg>Contact</a>
+</nav>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
