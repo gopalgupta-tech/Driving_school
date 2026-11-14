@@ -58,14 +58,37 @@
     });
   }
 
-  /* Hero video: respect reduced-motion, and recover if autoplay is blocked */
+  /* Hero video: start unmuted and provide a single accessible toggle. */
   var vid = $('#heroVideo');
   if (vid) {
+    var tag = $('.hero__tag');
+    if (tag) {
+      var muteButton = document.createElement('button');
+      muteButton.type = 'button';
+      muteButton.className = 'hero__tag btn';
+      muteButton.setAttribute('aria-label', 'Mute video');
+      muteButton.setAttribute('title', 'Mute video');
+      muteButton.innerHTML = '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
+      tag.replaceWith(muteButton);
+
+      muteButton.addEventListener('click', function () {
+        vid.muted = !vid.muted;
+        var muted = vid.muted;
+        muteButton.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
+        muteButton.setAttribute('title', muted ? 'Unmute video' : 'Mute video');
+        muteButton.innerHTML = muted
+          ? '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6m0-6-5 6"/></svg>'
+          : '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
+      });
+    }
+
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
       vid.removeAttribute('autoplay');
       vid.pause();
     } else {
+      vid.removeAttribute('muted');
+      vid.muted = false;
       var tryPlay = vid.play && vid.play();
       if (tryPlay && tryPlay.catch) tryPlay.catch(function () {});
     }
