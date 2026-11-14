@@ -12,29 +12,54 @@
   if (yr) yr.textContent = new Date().getFullYear();
 
   /* Sticky header shadow */
-
   var header = $('#siteHeader');
-  function onScroll() { header.classList.toggle('is-stuck', window.scrollY > 8); }
+  function onScroll() {
+    if (!header) return;
+    header.classList.toggle('is-stuck', window.scrollY > 8);
+  }
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
   /* Mobile / tablet menu */
   var toggle = $('#navToggle');
   var nav = $('#primaryNav');
-  function setMenu(open) {
-    nav.classList.toggle('is-open', open);
-    toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    toggle.innerHTML = '<svg class="i i--lg"><use href="#' + (open ? 'i-close' : 'i-menu') + '"/></svg>';
+  if (toggle && nav) {
+    function setMenu(open) {
+      nav.classList.toggle('is-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      toggle.innerHTML = '<svg class="i i--lg"><use href="#' + (open ? 'i-close' : 'i-menu') + '"/></svg>';
+    }
+
+    toggle.addEventListener('click', function () {
+      setMenu(!nav.classList.contains('is-open'));
+    });
+
+    $$('a', nav).forEach(function (a) {
+      a.addEventListener('click', function () {
+        setMenu(false);
+      });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('is-open')) {
+        setMenu(false);
+        toggle.focus();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (nav.classList.contains('is-open') && !nav.contains(e.target) && !toggle.contains(e.target)) {
+        setMenu(false);
+      }
+    });
+
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 899 && nav.classList.contains('is-open')) {
+        setMenu(false);
+      }
+    });
   }
-  toggle.addEventListener('click', function () { setMenu(!nav.classList.contains('is-open')); });
-  $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && nav.classList.contains('is-open')) { setMenu(false); toggle.focus(); }
-  });
-  document.addEventListener('click', function (e) {
-    if (nav.classList.contains('is-open') && !nav.contains(e.target) && !toggle.contains(e.target)) setMenu(false);
-  });
 
   /* Scroll-spy (top nav + bottom nav) */
   var ids = ['about', 'cars', 'simulator', 'branches', 'contact'];
@@ -43,7 +68,7 @@
     spyLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-spy') === id); });
   }
   function spy() {
-    var y = window.scrollY + header.offsetHeight + 120;
+    var y = window.scrollY + (header ? header.offsetHeight : 0) + 120;
     var current = 'top';
     ids.forEach(function (id) {
       var el = document.getElementById(id);
@@ -72,9 +97,11 @@
   var carSel = $('#fCar');
   var branchSel = $('#fBranch');
   var msg = $('#fMsg');
-  $$('[data-car]').forEach(function (btn) {
-    btn.addEventListener('click', function () { carSel.value = btn.getAttribute('data-car'); });
-  });
+  if (carSel) {
+    $$('[data-car]').forEach(function (btn) {
+      btn.addEventListener('click', function () { carSel.value = btn.getAttribute('data-car'); });
+    });
+  }
 
   /* Simulator: level toggle + Start Learning */
   var level = 'Beginner';
@@ -88,41 +115,47 @@
       });
     });
   });
-  $('#simStart').addEventListener('click', function () {
-    var b = $('#simBranch').value;
-    if (b) branchSel.value = b;
-    msg.value = 'I would like to start with simulator training (' + level + ').';
-  });
+  var simStart = $('#simStart');
+  if (simStart) {
+    simStart.addEventListener('click', function () {
+      var b = $('#simBranch').value;
+      if (b && branchSel) branchSel.value = b;
+      if (msg) msg.value = 'I would like to start with simulator training (' + level + ').';
+    });
+  }
 
   /* Enquiry form → WhatsApp */
   var form = $('#enquiryForm');
   function setErr(fieldId, errId, text) {
     var wrap = $('#' + fieldId).closest('.field');
-    wrap.classList.toggle('has-error', !!text);
-    $('#' + errId).textContent = text || '';
+    if (wrap) wrap.classList.toggle('has-error', !!text);
+    var el = $('#' + errId);
+    if (el) el.textContent = text || '';
   }
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var name = $('#fName').value.trim();
-    var mobile = $('#fMobile').value.replace(/[\s\-+]/g, '').replace(/^91(?=\d{10}$)/, '');
-    var ok = true;
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = $('#fName').value.trim();
+      var mobile = $('#fMobile').value.replace(/[\s\-+]/g, '').replace(/^91(?=\d{10}$)/, '');
+      var ok = true;
 
-    if (name.length < 2) { setErr('fName', 'eName', 'Please enter your name.'); ok = false; } else setErr('fName', 'eName', '');
-    if (!/^[6-9]\d{9}$/.test(mobile)) { setErr('fMobile', 'eMobile', 'Enter a valid 10-digit mobile number.'); ok = false; } else setErr('fMobile', 'eMobile', '');
-    if (!ok) { (form.querySelector('.has-error input') || {}).focus && form.querySelector('.has-error input').focus(); return; }
+      if (name.length < 2) { setErr('fName', 'eName', 'Please enter your name.'); ok = false; } else setErr('fName', 'eName', '');
+      if (!/^[6-9]\d{9}$/.test(mobile)) { setErr('fMobile', 'eMobile', 'Enter a valid 10-digit mobile number.'); ok = false; } else setErr('fMobile', 'eMobile', '');
+      if (!ok) { (form.querySelector('.has-error input') || {}).focus && form.querySelector('.has-error input').focus(); return; }
 
-    var lines = [
-      'Hello Shukla Car Driving School, I would like to enquire about driving training.',
-      '',
-      'Name: ' + name,
-      'Mobile: ' + mobile,
-      'Preferred car: ' + (carSel.value || 'Not selected'),
-      'Preferred branch: ' + (branchSel.value || 'Not selected')
-    ];
-    var extra = msg.value.trim();
-    if (extra) lines.push('Message: ' + extra);
+      var lines = [
+        'Hello Shukla Car Driving School, I would like to enquire about driving training.',
+        '',
+        'Name: ' + name,
+        'Mobile: ' + mobile,
+        'Preferred car: ' + (carSel ? (carSel.value || 'Not selected') : 'Not selected'),
+        'Preferred branch: ' + (branchSel ? (branchSel.value || 'Not selected') : 'Not selected')
+      ];
+      var extra = msg ? msg.value.trim() : '';
+      if (extra) lines.push('Message: ' + extra);
 
-    var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
-    window.open(url, '_blank', 'noopener');
-  });
+      var url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(lines.join('\n'));
+      window.open(url, '_blank', 'noopener');
+    });
+  }
 })();
