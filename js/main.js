@@ -58,71 +58,77 @@
     });
   }
 
-  /* Replace the first content image with the fleet video and add a separate
-     mute toggle. The hero video and its caption remain unchanged. */
-  var firstImage = $('#about .about__media img');
-  if (firstImage) {
-    var media = firstImage.parentNode;
-    var video = document.createElement('video');
-    video.id = 'aboutVideo';
-    video.autoplay = true;
-    video.loop = true;
-    video.playsInline = true;
-    video.preload = 'metadata';
-    video.poster = firstImage.currentSrc || firstImage.src;
-    video.setAttribute('aria-label', 'Shukla Car Driving School training fleet video');
-    video.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;';
-    var source = document.createElement('source');
-    source.src = 'assets/images/three-cars.mp4';
-    source.type = 'video/mp4';
-    video.appendChild(source);
-    firstImage.replaceWith(video);
+  /* Hero background video
+     - Tries to play WITH sound (default = unmuted). Browsers block unmuted autoplay for
+       new visitors, so it falls back to muted and unmutes on the visitor's first tap/key.
+     - Mute/unmute button, pauses when scrolled out of view or tab hidden. */
+  var vid = $('#heroVideo');
+  var sndBtn = $('#vidSound');
+  if (vid) {
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var userMuted = false;   // true once the visitor chose to mute
+    var inView = true;
+    var unlockEvents = ['pointerdown', 'keydown', 'touchstart'];
 
-    var muteButton = document.createElement('button');
-    muteButton.type = 'button';
-    muteButton.className = 'about__mute-button';
-    muteButton.setAttribute('aria-label', 'Mute video');
-    muteButton.setAttribute('title', 'Mute video');
-    muteButton.setAttribute('aria-pressed', 'false');
-    muteButton.style.cssText = 'position:absolute;top:14px;right:14px;z-index:3;width:44px;height:44px;display:grid;place-items:center;padding:0;border:1px solid rgba(255,255,255,.55);border-radius:50%;background:rgba(15,30,51,.88);color:#fff;cursor:pointer;';
-    media.appendChild(muteButton);
-
-    function updateMuteButton() {
-      var muted = video.muted;
-      muteButton.setAttribute('aria-label', muted ? 'Unmute video' : 'Mute video');
-      muteButton.setAttribute('title', muted ? 'Unmute video' : 'Mute video');
-      muteButton.setAttribute('aria-pressed', String(muted));
-      muteButton.innerHTML = muted
-        ? '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="m16 9 5 6m0-6-5 6"/></svg>'
-        : '<svg class="i" aria-hidden="true" viewBox="0 0 24 24"><path d="M11 5 6 9H3v6h3l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
+    var paintBtn = function () {
+      if (!sndBtn) return;
+      sndBtn.setAttribute('data-muted', String(vid.muted));
+      sndBtn.setAttribute('aria-pressed', String(!vid.muted));
+      sndBtn.setAttribute('aria-label', vid.muted ? 'Unmute video' : 'Mute video');
+    };
+    var play = function () {
+      var p = vid.play();
+      if (p && p.catch) p.catch(function () {});
+    };
+    var stopUnlock = function () {
+      unlockEvents.forEach(function (ev) { document.removeEventListener(ev, unlock); });
+    };
+    function unlock(e) {
+      if (sndBtn && e.target && sndBtn.contains(e.target)) return; // button handles itself
+      stopUnlock();
+      if (!userMuted && vid.muted) { vid.muted = false; play(); paintBtn(); }
     }
 
-    video.muted = false;
-    updateMuteButton();
-    muteButton.addEventListener('click', function () {
-      video.muted = !video.muted;
-      updateMuteButton();
-      if (!video.muted && video.paused) {
-        var playPromise = video.play();
-        if (playPromise && playPromise.catch) playPromise.catch(function () {});
-      }
-    });
-
-    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) {
-      video.removeAttribute('autoplay');
-      video.pause();
+      vid.removeAttribute('autoplay');
+      vid.pause();
+      vid.muted = true;
+      paintBtn();
     } else {
-      var playPromise = video.play();
-      if (playPromise && playPromise.catch) {
-        playPromise.catch(function () {
-          /* Browsers may block autoplay with sound; fall back to muted autoplay. */
-          video.muted = true;
-          updateMuteButton();
-          var mutedPlay = video.play();
-          if (mutedPlay && mutedPlay.catch) mutedPlay.catch(function () {});
+      vid.muted = false;                       // default: sound on
+      var started = vid.play();
+      if (started && started.then) {
+        started.then(paintBtn).catch(function () {
+          vid.muted = true;                    // autoplay with sound was blocked
+          play();
+          paintBtn();
+          unlockEvents.forEach(function (ev) { document.addEventListener(ev, unlock, { passive: true }); });
         });
+      } else {
+        paintBtn();
       }
+
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            inView = en.isIntersecting;
+            if (inView) play(); else vid.pause();
+          });
+        }, { threshold: 0.2 }).observe(vid);
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) vid.pause(); else if (inView) play();
+      });
+    }
+
+    if (sndBtn) {
+      sndBtn.addEventListener('click', function () {
+        stopUnlock();
+        vid.muted = !vid.muted;
+        userMuted = vid.muted;
+        if (!vid.muted && !reduce) play();
+        paintBtn();
+      });
     }
   }
 
