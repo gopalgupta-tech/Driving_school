@@ -133,7 +133,7 @@
   }
 
   /* Scroll-spy (top nav + bottom nav) */
-  var ids = ['about', 'cars', 'simulator', 'branches', 'contact'];
+  var ids = ['about', 'cars', 'simulator', 'branches', 'faq', 'contact'];
   var spyLinks = $$('[data-spy]');
   function setActive(id) {
     spyLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('data-spy') === id); });
